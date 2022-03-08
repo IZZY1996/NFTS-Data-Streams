@@ -22,6 +22,7 @@ foreach ($stream in $streams) {
         if (($yy.Length -eq 4 -or $yy.length -eq 3) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]') -and ($yy[2] -match 'ReferrerUrl=+.' -or $yy[2] -match 'HostUrl=+.')){}
         elseif (($yy.Length -eq 2) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]')) {}
         elseif (($yy.Length -eq 3) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'LastWriterPackageFamilyName=+.') -and ($yy[2] -match 'ZoneID=[1234]')) {}
+        elseif (($yy.Length -eq 4) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]') -and ($yy[2] -match 'LastWriterPackageFamilyName=+.') -and ($yy[3] -match 'ZoneID=\d')) {}
 
         else {
             $ror += $stream 
