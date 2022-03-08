@@ -108,7 +108,7 @@ Anaheim
 ## Afp_AfpInfo Stream
 Existance of Afp_AfpInfo stream on some files is normal, and as such is of no cause for concern. This stream is generated on some file shares for support for Macintosh system (AFP = Apple Filing Protocol).<sub><sub><a href="https://www.f-secure.com/v-descs/afpinfo.shtml"> F-Secure | Afp_AfpInfo </a></sub></sub>
   
-A file *INVITE.pdf* (and all PDFs I checked) has this value `Not in the Script`
+A file *INVITE.pdf* (and all PDFs I checked) has this value
 ```
 AFP☺€PDF CARO
 ```
