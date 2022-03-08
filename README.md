@@ -4,6 +4,8 @@ This PowerShell Script can be used to find Alternate Data Streams (ADS) that are
 Below is an about that will explain the normal behaviors you should expect in an ADS so you know what is normal and what you should look into further. This is all just based on what I've seen on my systems and from documents/blogs I've read.
 
 # About Alternate Data Streams (ADS)
+It was originally intended to allow for compatibility with Macintosh’s <a href="https://en.wikipedia.org/wiki/Hierarchical_File_System">Hierarchical File System (HFS)</a>
+
 All files on an NTFS volume consist of at least one stream - the main stream – this is the normal, viewable file in which data is stored. The full name of a stream is of the form <filename>:<stream name>:<stream type> The default data stream has no name. That is, the fully qualified name for the default stream for a file called "sample.txt" is "sample.txt::$DATA" since "sample.txt" is the name of the file and "$DATA" is the stream type. <sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85">Microsoft Docs | 5.1 NTFS Streams</a></sub></sub>
 > *Note:* A directory can also have an ADS
   
@@ -93,5 +95,5 @@ I've only seen one value for this ADS
 ```
 Anaheim
 ```
-> *Note:* Anaheim was the codename for the Cromium based Microsoft Edge <sub><sub><a href="https://en.wikipedia.org/wiki/Microsoft_Edge#New_Edge_(2019%E2%80%93present)">Wikipedia | Microsoft Edge</a></sub></sub>
+> *Note:* Anaheim was the codename for the Chromium based Microsoft Edge <sub><sub><a href="https://en.wikipedia.org/wiki/Microsoft_Edge#New_Edge_(2019%E2%80%93present)">Wikipedia | Microsoft Edge</a></sub></sub>
   
