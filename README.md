@@ -43,6 +43,13 @@ ReferrerUrl=https://docs.microsoft.com/
 HostUrl=https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-ADA1/%5bMS-ADA1%5d.pdf
 ```
 
+A file *Band_Chart_-_11X17_Color.pdf* Downloaded from the internet (Discord in this case)
+```
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://cdn.discordapp.com/attachments/539252306579816474/620049600782401542/Band_Chart_-_11X17_Color.pdf
+```
+  
 A file *WindowsFirewallHelper.dll* was extracted from a ZIP folder that was downloaded from the internet
 ```
 [ZoneTransfer]
