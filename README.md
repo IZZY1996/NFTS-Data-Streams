@@ -1,20 +1,22 @@
 # NFTS Data Streams
 This PowerShell Script can be used to find Alternate Data Streams (ADS) that are outside the normal expected types. This can be used for threat hunting or forensics on NTFS systems.
 
+Below is an about that will explain the normal behaviors you should expect in an ADS so you know what is normal and what you should look into further. This is all just based on what I've seen on my systems and from documents/blogs I've read.
+
 # About Alternate Data Streams (ADS)
 All files on an NTFS volume consist of at least one stream - the main stream – this is the normal, viewable file in which data is stored. The full name of a stream is of the form <filename>:<stream name>:<stream type> The default data stream has no name. That is, the fully qualified name for the default stream for a file called "sample.txt" is "sample.txt::$DATA" since "sample.txt" is the name of the file and "$DATA" is the stream type. <sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85">Microsoft Docs | 5.1 NTFS Streams</a></sub></sub>
 > *Note:* A directory can also have an ADS
   
-Here is a table of all the standard attribute types<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85">Microsoft Docs | 5.2 NTFS Attribute Types</a>
+Here is a table of all the standard attribute types<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85">Microsoft Docs | 5.2 NTFS Attribute Types</a></sub></sub>
 | Attribute Name | Description |
 | --- | --- |
 | $ATTRIBUTE_LIST | Lists the location of all attribute records that do not fit in the MFT record |
-| $BITMAP | Attribute for Bitmaps |
-| $DATA | Contains the default file data |
+| $BITMAP | Attribute for Bitmaps **(Currently Used)**|
+| $DATA | Contains the default file data **(Currently Used)**|
 | $EA | Extended the attribute index |
 | $EA_INFORMATION | Extended attribute information |
 | $FILE_NAME | File name |
-| $INDEX_ALLOCATION | The type name for a Directory Stream. A string for the attribute code for index allocation |
+| $INDEX_ALLOCATION | The type name for a Directory Stream. A string for the attribute code for index allocation **(Currently Used)**|
 | $INDEX_ROOT | Used to support folders and other indexes |
 | $LOGGED_UTILITY_STREAM | Use by the encrypting file system |
 | $OBJECT_ID | Unique GUID for every MFT record |
@@ -28,4 +30,8 @@ Here is a table of all the standard attribute types<sub><sub><a href="https://do
 | $VOLUME_NAME | Name of the volume |
 | $VOLUME_VERSION | Obsolete. Volume version |
 
+## Zone.Identifier Stream
+Windows uses the stream name Zone.Identifier for storage of <a href="https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms537183(v=vs.85)?redirectedfrom=MSDN">URL security zones</a>.<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/6e3f7352-d11c-4d76-8c39-2516a9df36e8">Microsoft Docs | 5.6.1 Zone.Identifier Stream</a></sub></sub>
+The Contents of this ADS have a few variations 
 
+  
