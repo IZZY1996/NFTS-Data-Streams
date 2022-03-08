@@ -62,6 +62,16 @@ A file *1610298430605.mp4* was downloaded from the internet (I think I got this 
 [ZoneTransfer]
 ZoneId=3
 ```
+  
+A video file *2020-10-04 21-16-11_Trim* that was edited using the Windows Photo app (video was first captured using <a href="https://obsproject.com/">OBS</a>)
+```
+[ZoneTransfer]
+LastWriterPackageFamilyName=Microsoft.Windows.Photos_8wekyb3d8bbwe
+ZoneId=3
+```
+> *Note:* I've also seen the app used as *Microsoft.ScreenSketch_8wekyb3d8bbwe* and *Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe* These are AppX packages. If you see something you don't recognise you can use the powershell `Get-AppxPackage | ? {$_.PackageFamilyName -eq "Microsoft.ScreenSketch_8wekyb3d8bbwe"}` or whatever you're looking for.
+  
+
 ## SmartScreen Stream
 I've only seen one value for this ADS
 ```
