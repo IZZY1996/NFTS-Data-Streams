@@ -82,7 +82,7 @@ ZoneId=3
 ```
 > *Note:* I've also seen the app used as *Microsoft.ScreenSketch_8wekyb3d8bbwe* and *Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe* These are AppX packages. If you see something you don't recognise you can use the powershell `Get-AppxPackage | ? {$_.PackageFamilyName -eq "Microsoft.ScreenSketch_8wekyb3d8bbwe"}` or whatever you're looking for.
   
-A file *TipsToPublicSpeaking.pdf* probably saved or "print to PDF" from the old edge (this file was from 2017) `Not in the Script`
+A file *TipsToPublicSpeaking.pdf* probably saved or "print to PDF" from the old edge (this file was from 2017)
 ```
 [ZoneTransfer]
 ZoneId=3
