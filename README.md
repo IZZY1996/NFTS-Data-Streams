@@ -32,6 +32,8 @@ Here is a table of all the standard attribute types<sub><sub><a href="https://do
 
 ## Zone.Identifier Stream
 Windows uses the stream name Zone.Identifier for storage of <a href="https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms537183(v=vs.85)?redirectedfrom=MSDN">URL security zones</a>.<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/6e3f7352-d11c-4d76-8c39-2516a9df36e8">Microsoft Docs | 5.6.1 Zone.Identifier Stream</a></sub></sub>
+
+This ADS is also known as the *Mark-of-the-Web (MOTW)*
   
 The Contents of this ADS have a few variations 
   
@@ -42,7 +44,7 @@ ZoneId=3
 ReferrerUrl=https://docs.microsoft.com/
 HostUrl=https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-ADA1/%5bMS-ADA1%5d.pdf
 ```
-
+  
 A file *Band_Chart_-_11X17_Color.pdf* Downloaded from the internet (Discord in this case)
 ```
 [ZoneTransfer]
@@ -62,6 +64,13 @@ A file *1610298430605.mp4* was downloaded from the internet (I think I got this 
 [ZoneTransfer]
 ZoneId=3
 ```
+
+A file *doc_2020-06-08_20-11-54.mp4* I downloaded from Telegram (note that it has a blank line)
+```
+[ZoneTransfer]
+ZoneId=3
+
+```
   
 A video file *2020-10-04 21-16-11_Trim* that was edited using the Windows Photo app (video was first captured using <a href="https://obsproject.com/">OBS</a>)
 ```
@@ -71,7 +80,14 @@ ZoneId=3
 ```
 > *Note:* I've also seen the app used as *Microsoft.ScreenSketch_8wekyb3d8bbwe* and *Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe* These are AppX packages. If you see something you don't recognise you can use the powershell `Get-AppxPackage | ? {$_.PackageFamilyName -eq "Microsoft.ScreenSketch_8wekyb3d8bbwe"}` or whatever you're looking for.
   
-
+A table of the ZoneIds
+| Value | Zone |
+| --- | --- |
+| 0 | Local Computer |
+| 1 | Local Intranet |
+| 2 | Trusted Sites |
+| 3 | Internet |
+| 4 | Restricted Sites |
 ## SmartScreen Stream
 I've only seen one value for this ADS
 ```
