@@ -32,6 +32,33 @@ Here is a table of all the standard attribute types<sub><sub><a href="https://do
 
 ## Zone.Identifier Stream
 Windows uses the stream name Zone.Identifier for storage of <a href="https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms537183(v=vs.85)?redirectedfrom=MSDN">URL security zones</a>.<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/6e3f7352-d11c-4d76-8c39-2516a9df36e8">Microsoft Docs | 5.6.1 Zone.Identifier Stream</a></sub></sub>
+  
 The Contents of this ADS have a few variations 
+  
+A file *[MS-ADA1].pdf* was downloaded from the internet
+```
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://docs.microsoft.com/
+HostUrl=https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-ADA1/%5bMS-ADA1%5d.pdf
+```
+
+A file *WindowsFirewallHelper.dll* was extracted from a ZIP folder that was downloaded from the internet
+```
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=C:\Users\XXXX\Downloads\Release_2.1.9.0002.zip
+```  
+  
+A file *1610298430605.mp4* was downloaded from the internet (I think I got this one on discord)
+```
+[ZoneTransfer]
+ZoneId=3
+```
+## SmartScreen Stream
+I've only seen one value for this ADS
+```
+Anaheim
+```
 
   
