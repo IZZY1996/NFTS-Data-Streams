@@ -112,3 +112,11 @@ A file *INVITE.pdf* (and most PDFs I checked) has this value
 ```
 AFP☺€PDF CARO
 ```
+## AFP_Resource Stream
+
+## com.apple.metadata_kMDItemUserTags Stream
+  
+## com.apple.lastuseddate#PS Stream
+  
+## OECustomProperty Stream
+Outlook Express uses the stream name OECustomProperty for storage of custom properties related to email files.<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/f1adfb03-a5ca-49e5-9f0e-c01b7c56c2e3"> Microsoft Docs | 5.6.2 Outlook Express Properties Stream Name </a></sub></sub>
