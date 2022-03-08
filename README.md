@@ -105,3 +105,10 @@ Anaheim
 ```
 > *Note:* Anaheim was the codename for the Chromium based Microsoft Edge <sub><sub><a href="https://en.wikipedia.org/wiki/Microsoft_Edge#New_Edge_(2019%E2%80%93present)">Wikipedia | Microsoft Edge</a></sub></sub>
   
+## Afp_AfpInfo Stream
+Existance of Afp_AfpInfo stream on some files is normal, and as such is of no cause for concern. This stream is generated on some file shares for support for Macintosh system (AFP = Apple Filing Protocol).<sub><sub><a href="https://www.f-secure.com/v-descs/afpinfo.shtml"> F-Secure | Afp_AfpInfo </a></sub></sub>
+  
+A file *INVITE.pdf* (and all PDFs I checked) has this value `Not in the Script`
+```
+AFP☺€PDF CARO
+```
