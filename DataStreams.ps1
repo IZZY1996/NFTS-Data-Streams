@@ -27,6 +27,13 @@ foreach ($stream in $streams) {
             $ror += $stream 
         }
     }
+    elseif ($stream.Stream -eq "Afp_AfpInfo") {
+        $ll = Get-Content -LiteralPath $stream.pspath.ToString()
+        if ($ll -eq 'AFP☺€PDF CARO') {}
+        else{
+            $ror += $stream
+        }
+    }
     else { # if none of the above apply
         $ror += $stream
     }
