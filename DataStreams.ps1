@@ -6,7 +6,7 @@ $ror = @()
 $streams = (Get-ChildItem -Recurse | get-item -stream * | Where-Object {$_.stream -ne ':$Data'})
 
 foreach ($stream in $streams) {
-    if ($stream.Stream -eq "SmartScreen"){
+    if ($stream.Stream -eq "SmartScreen"){ # if the stream is a smartscreen
         $ww = (get-content $stream.pspath)
         if ($ww -eq "Anaheim"){
 
@@ -15,18 +15,19 @@ foreach ($stream in $streams) {
             $ror += $stream
         }
     }
-    elseif ($stream.Stream -eq "Zone.Identifier"){
-        $yy = Get-Content -LiteralPath $stream.pspath.ToString()
-        if (($yy.Length -eq 4 -or $yy.length -eq 3) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]') -and ($yy[2] -match 'ReferrerUrl=+.' -or $yy[2] -match 'HostUrl=+.')){
-        }
-        elseif (($yy.Length -eq 2 -or $yy.length -eq 3) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]')) {
+    elseif ($stream.Stream -eq "Zone.Identifier"){ # if the stream is a MOTW
 
-        }
+        $yy = Get-Content -LiteralPath $stream.pspath.ToString()
+
+        if (($yy.Length -eq 4 -or $yy.length -eq 3) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]') -and ($yy[2] -match 'ReferrerUrl=+.' -or $yy[2] -match 'HostUrl=+.')){}
+        elseif (($yy.Length -eq 2) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'ZoneID=[1234]')) {}
+        elseif (($yy.Length -eq 3) -and ($yy[0] -eq "[ZoneTransfer]") -and ($yy[1] -match 'LastWriterPackageFamilyName=+.') -and ($yy[2] -match 'ZoneID=[1234]')) {}
+
         else {
             $ror += $stream 
         }
     }
-    else {
+    else { # if none of the above apply
         $ror += $stream
     }
 }
