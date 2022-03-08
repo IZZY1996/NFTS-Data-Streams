@@ -93,5 +93,5 @@ I've only seen one value for this ADS
 ```
 Anaheim
 ```
-
+> *Note:* Anaheim was the codename for the Cromium based Microsoft Edge <sub><sub><a href="https://en.wikipedia.org/wiki/Microsoft_Edge#New_Edge_(2019%E2%80%93present)">Wikipedia | Microsoft Edge</a></sub></sub>
   
