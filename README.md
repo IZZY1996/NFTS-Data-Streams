@@ -67,7 +67,7 @@ A file *1610298430605.mp4* was downloaded from the internet (I think I got this 
 ZoneId=3
 ```
 
-A file *doc_2020-06-08_20-11-54.mp4* I downloaded from Telegram (note that it has a blank line)
+A file *doc_2020-06-08_20-11-54.mp4* I downloaded from Telegram (note that it has a blank line) `Not in the Script`
 ```
 [ZoneTransfer]
 ZoneId=3
@@ -81,6 +81,14 @@ LastWriterPackageFamilyName=Microsoft.Windows.Photos_8wekyb3d8bbwe
 ZoneId=3
 ```
 > *Note:* I've also seen the app used as *Microsoft.ScreenSketch_8wekyb3d8bbwe* and *Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe* These are AppX packages. If you see something you don't recognise you can use the powershell `Get-AppxPackage | ? {$_.PackageFamilyName -eq "Microsoft.ScreenSketch_8wekyb3d8bbwe"}` or whatever you're looking for.
+  
+A file *TipsToPublicSpeaking.pdf* probably saved or "print to PDF" from the old edge (this file was from 2017) `Not in the Script`
+```
+[ZoneTransfer]
+ZoneId=3
+LastWriterPackageFamilyName=Microsoft.MicrosoftEdge_8wekyb3d8bbwe
+AppZoneId=4
+```
   
 A table of the ZoneIds
 | Value | Zone |
