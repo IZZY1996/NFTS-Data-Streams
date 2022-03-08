@@ -1,5 +1,5 @@
 # NFTS Data Streams
-This PowerShell Script can be used to find Alternate Data Streams (ADS) that are outside the normal expected types. This can be used for threat hunting or forensics on NTFS systems.
+This PowerShell Script can be used to find Alternate Data Streams (ADS) that are outside the normal expected types. This can be used for threat hunting or forensics on NTFS volumes.
 
 Below is an about that will explain the normal behaviors you should expect in an ADS so you know what is normal and what you should look into further. This is all just based on what I've seen on my systems and from documents/blogs I've read.
 
