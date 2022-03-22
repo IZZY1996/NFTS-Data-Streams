@@ -1,7 +1,7 @@
 ##########################
 #   Find Data Streams    #
 ##########################
-
+function Get-DataStream {
 $ror = @()
 $streams = (Get-ChildItem -Recurse | get-item -stream * | Where-Object {$_.stream -ne ':$Data'})
 
@@ -39,4 +39,5 @@ ForEach ($s in $ror) {
     $e,$r = $s.PSParentPath -split "::"
     Write-Host "$r\" -ForegroundColor darkGray -NoNewline
     Write-Host $s.PSChildName -ForegroundColor White
+}
 }
