@@ -34,6 +34,7 @@ foreach ($stream in $streams) {
 }
 
 # write output
+"------------ Suspicious Data Streams ------------"
 ForEach ($s in $ror) {
     $e,$r = $s.PSParentPath -split "::"
     Write-Host "$r\" -ForegroundColor darkGray -NoNewline
