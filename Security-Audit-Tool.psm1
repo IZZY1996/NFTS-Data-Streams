@@ -1,14 +1,19 @@
-# TO DO:
-#
-# [] create a better object as output for Search-AuditLog
-# [] create Backup-AuditLog
-# [] add switch -offline to Search-AuditLog to search the audit log created by Backup-AuditLog 
-# [] add better help to Search-AuditLog
-#
 function Get-SATDataStream {
     <#
         .SYNOPSIS
             A script that can be used to find Alternate Data Streams (ADS) that are outside the normal expected types. This can be used for threat hunting or forensics on NTFS volumes.
+        .DESCRIPTION
+            To view a full view of what's normal or expected in the ADS, or to view more information use -full and view the NOTES section. 
+        .NOTES
+            ------ Alternate Data Streams (ADS) -------
+            Alternate Data Streams (ADS) in NFTS was originally intended to allow for compatibility with Macintosh’s Hierarchical File System (HFS) 
+            
+            All files on an NTFS volume consist of at least one stream - the main stream – this is the normal, viewable file in which data is stored. The full name of a stream is of the form :: The default data stream has no name. That is, the fully qualified name for the default stream for a file called "sample.txt" is "sample.txt::$DATA" since "sample.txt" is the name of the file and "$DATA" is the stream type.
+            
+            https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85
+
+            <Note:> A directory can also have an ADS
+            --------------------------------------------
     #>
     [CmdletBinding()]
     param()
@@ -55,7 +60,6 @@ function Get-SATDataStream {
     }
 }
 
-
 function Backup-SATM365Log {
     <#
         .SYNOPSIS
@@ -66,7 +70,6 @@ function Backup-SATM365Log {
 
     process {}
 }
-
 
 function StatusBar {
     <#
@@ -91,7 +94,10 @@ function StatusBar {
             $remaning = $width - ($text.length)
             $text += " " * $remaning
         }
-        ClearStatusBar
+
+        $delete = "`b" * $width
+        write-host $delete -NoNewline
+
         for ($i = 0; $i -lt $width; $i++) {
             if ($i -le (($width - $h) - 1)) {
                 Write-host "$($text[$i])" -BackgroundColor DarkGreen -NoNewline
@@ -102,19 +108,6 @@ function StatusBar {
         }
     }
 }
-
-
-function ClearStatusBar {
-    [CmdletBinding()]
-    param()
-
-    process {
-        $width = $Host.UI.RawUI.WindowSize.Width
-        $delete = "`b" * $width
-        write-host $delete -NoNewline
-    }
-}
-
 
 function Search-SATM365Log {
     <#
@@ -136,8 +129,8 @@ function Search-SATM365Log {
             Specifies the end date of the range for the audit log search. The script will return records for audit activities that occurred within the specified date range.
         .PARAMETER logFile
             Specifies the name and location for the log file that contains information about the progress of the audit log search performed. The script writes UTC timestamps to the log file.
-        .PARAMETER jsonFile
-            Specifies the name and location of the JSON file that contains the audit records returned.
+        .PARAMETER outputFile
+            Specifies the name and location of the CSV file that contains the audit records returned.
         .PARAMETER resultSize
             Specifies the number of results returned each time the Search-UnifiedAuditLog cmdlet is called by the script (called a result set). The value of 5,000 is the maximum value supported by the cmdlet. Leave this value as-is.
         .PARAMETER intervalMinutes
@@ -151,7 +144,7 @@ function Search-SATM365Log {
         [DateTime]$start = [DateTime]::UtcNow.AddDays(-1),
         [DateTime]$end = [DateTime]::UtcNow,
         $logFile = "C:\AuditLogSearch\AuditLogSearchLog.txt",
-        $jsonFile = "C:\AuditLogSearch\AuditLogRecords.json",
+        $jsonfile = "C:\AuditLogSearch\AuditLogRecords.json",
         [validaterange(1, 5000)]
         $resultSize = 5000,
         $intervalMinutes = 60
@@ -205,15 +198,13 @@ function Search-SATM365Log {
                 $results = Search-UnifiedAuditLog -StartDate $currentStart -EndDate $currentEnd -RecordType $record -SessionId $sessionID -SessionCommand ReturnLargeSet -ResultSize $resultSize
                 if (($results | Measure-Object).Count -ne 0) {
                     $jsondata += $results.auditdata
-                    $results.auditdata | ConvertFrom-Json | Format-Table  CreationTime, UserId, Operation, ObjectId
                     $currentTotal = $results[0].ResultCount
                     $totalCount += $results.Count
                     $currentCount += $results.Count
                     Write-LogFile "INFO: Retrieved $($currentCount) audit records out of the total $($currentTotal)"
 
                     if ($currentTotal -eq $results[$results.Count - 1].ResultIndex) {
-                        $message = "INFO: Successfully retrieved $($currentTotal) audit records for the current time range. Moving on!"
-                        Write-LogFile $message
+                        Write-LogFile "INFO: Successfully retrieved $($currentTotal) audit records for the current time range. Moving on!"
                         StatusBar -progress $prog -text "Successfully retrieved $($currentTotal) audit records for the current time range. Moving on to the next interval."
                         break
                     }
@@ -227,6 +218,7 @@ function Search-SATM365Log {
         Write-LogFile "END: Retrieving audit records between $($start) and $($end), RecordType=$record, PageSize=$resultSize, total count: $totalCount."
         Write-Host "Script complete! Finished retrieving audit records for the date range between $($start) and $($end). Total count: $totalCount" -foregroundColor Green
         $jsondata | out-file $jsonfile
+        $jsondata | ConvertFrom-Json | Sort-Object CreationTime
     }
 }
 
