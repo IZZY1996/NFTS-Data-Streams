@@ -1,7 +1,7 @@
-# NFTS Data Streams
-This PowerShell Script can be used to find Alternate Data Streams (ADS) that are outside the normal expected types. This can be used for threat hunting or forensics on NTFS volumes.
+# Security Audit Tool (SAT) PowerShell module
+This PowerShell Module can be used to audit various technologies. Currently what it can check is NFTS Alternate Data Streams (ADS) and Microsoft 365 Audit Logs. This can be used for threat hunting or forensics.
 
-Below is an about that will explain the normal behaviors you should expect in an ADS so you know what is normal and what you should look into further. This is all just based on what I've seen on my systems and from documents/blogs I've read.
+Bellow is some infomation on ADS if you need some (I'll hopefully just be able to hide that in the module soon)
 
 # About Alternate Data Streams (ADS)
 It was originally intended to allow for compatibility with Macintosh’s <a href="https://en.wikipedia.org/wiki/Hierarchical_File_System">Hierarchical File System (HFS)</a>
