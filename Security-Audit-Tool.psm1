@@ -19,7 +19,7 @@ function Get-SATDataStream {
             ---------------         ------------
             $ATTRIBUTE_LIST         Lists the location of all attribute records that do not fit in the MFT record
             $BITMAP                 Attribute for Bitmaps (Currently Used)
-            $DATA	                Contains the default file data (Currently Used)
+            $DATA                   Contains the default file data (Currently Used)
             $EA	                    Extended the attribute index
             $EA_INFORMATION	        Extended attribute information
             $FILE_NAME	            File name
@@ -89,12 +89,169 @@ function Get-SATDataStream {
 function Backup-SATM365Log {
     <#
         .SYNOPSIS
-            A tool to backup and splice the audit logs together for archiving purposes, to get past the 90 day retention period
+            A tool to backup and splice the audit logs together for archiving purposes, to get past the 90 day retention period limitation
     #>
     [CmdletBinding()]
-    param()
-
-    process {}
+    param(
+        $file = "C:\AuditLogSearch\backup.json",
+        [DateTime]$start = [DateTime]::UtcNow.Addhours(-10),
+        [DateTime]$end = [DateTime]::UtcNow.AddHours(-5)
+    )
+    process {
+        $mergedfile =@()
+        if (test-path $file) {
+            $ficont = get-content $file | ConvertFrom-Json
+            [datetime]$lastcontent = (($ficont[($ficont.count) - 1]).creationtime).Addhours(-1)
+            $d = Search-SATM365Log -jsonfile "C:\AuditLogSearch\backupnew.json" -start $lastcontent -end $([DateTime]::UtcNow)
+            $t = (Get-Content $file | ConvertFrom-Json | Sort-Object CreationTime)
+            $y = (Get-Content "C:\AuditLogSearch\backupnew.json" | ConvertFrom-Json | Sort-Object CreationTime)
+            #
+            # Holy cow this is awful, I'll clean it up later, but that's the idea 
+            #
+            $yc = @()
+            $tc = @()
+            for ($i = 0;$i -lt $y.count; $i++){
+                if ($t[$t.count-10].id -eq $y[$i].id) {
+                    #Write-host "---- Base ---------------------------- New ----"
+                    #write-host " $(($t.count)-10) $($t[($t.count)-10].creationtime)    $i $($y[$i].creationtime)"
+                    $tc += $t.count-10
+                    $yc += $i
+                    for ($i = 0;$i -lt $y.count; $i++){
+                        if ($t[$t.count-11].id -eq $y[$i].id) {
+                            #write-host " $(($t.count)-11) $($t[($t.count)-11].creationtime)    $i $($y[$i].creationtime)"
+                            $tc += $t.count-11
+                            $yc += $i
+                            for ($i = 0;$i -lt $y.count; $i++){
+                                if ($t[$t.count-12].id -eq $y[$i].id) {
+                                    #write-host " $(($t.count)-12) $($t[($t.count)-12].creationtime)    $i $($y[$i].creationtime)"
+                                    $tc += $t.count-12
+                                    $yc += $i
+                                    for ($i = 0;$i -lt $y.count; $i++){
+                                        if ($t[$t.count-13].id -eq $y[$i].id) {
+                                            #write-host " $(($t.count)-13) $($t[($t.count)-13].creationtime)    $i $($y[$i].creationtime)"
+                                            $tc += $t.count-13
+                                            $yc += $i
+                                            for ($i = 0;$i -lt $y.count; $i++){
+                                                if ($t[$t.count-14].id -eq $y[$i].id) {
+                                                    #write-host " $(($t.count)-14) $($t[($t.count)-14].creationtime)    $i $($y[$i].creationtime)"
+                                                    $tc += $t.count-14
+                                                    $yc += $i
+                                                    for ($i = 0;$i -lt $y.count; $i++){
+                                                        if ($t[$t.count-15].id -eq $y[$i].id) {
+                                                            #write-host " $(($t.count)-15) $($t[($t.count)-15].creationtime)    $i $($y[$i].creationtime)"
+                                                            $tc += $t.count-15
+                                                            $yc += $i
+                                                            for ($i = 0;$i -lt $y.count; $i++){
+                                                                if ($t[$t.count-16].id -eq $y[$i].id) {
+                                                                    #write-host " $(($t.count)-16) $($t[($t.count)-16].creationtime)    $i $($y[$i].creationtime)"
+                                                                    $tc += $t.count-16
+                                                                    $yc += $i
+                                                                    for ($i = 0;$i -lt $y.count; $i++){
+                                                                        if ($t[$t.count-17].id -eq $y[$i].id) {
+                                                                            #write-host " $(($t.count)-17) $($t[($t.count)-17].creationtime)    $i $($y[$i].creationtime)"
+                                                                            $tc += $t.count-17
+                                                                            $yc += $i
+                                                                            for ($i = 0;$i -lt $y.count; $i++){
+                                                                                if ($t[$t.count-18].id -eq $y[$i].id) {
+                                                                                    #write-host " $(($t.count)-18) $($t[($t.count)-18].creationtime)    $i $($y[$i].creationtime)"
+                                                                                    $tc += $t.count-18
+                                                                                    $yc += $i
+                                                                                    for ($i = 0;$i -lt $y.count; $i++){
+                                                                                        if ($t[$t.count-19].id -eq $y[$i].id) {
+                                                                                            #write-host " $(($t.count)-19) $($t[($t.count)-19].creationtime)    $i $($y[$i].creationtime)"
+                                                                                            $tc += $t.count-19
+                                                                                            $yc += $i
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if ($yc[1] -eq $yc[0]-1) {
+                if ($yc[1] -eq $yc[2]+1) {
+                    $answer = 1
+                }
+            }else {
+                if ($yc[2] -eq $yc[1]-1) {
+                    if ($yc[2] -eq $yc[3]+1) {
+                        $answer = 2
+                    }
+                }else {
+                    if ($yc[3] -eq $yc[2]-1) {
+                        if ($yc[3] -eq $yc[4]+1) {
+                            $answer = 3
+                        }
+                    }else {
+                        if ($yc[4] -eq $yc[3]-1) {
+                            if ($yc[4] -eq $yc[5]+1) {
+                                $answer = 4
+                            }
+                        }else {
+                            if ($yc[5] -eq $yc[4]-1) {
+                                if ($yc[5] -eq $yc[6]+1) {
+                                    $answer = 5
+                                }
+                            }else {
+                                if ($yc[6] -eq $yc[5]-1) {
+                                    if ($yc[6] -eq $yc[7]+1) {
+                                        $answer = 6
+                                    }
+                                }else {
+                                    if ($yc[7] -eq $yc[6]-1) {
+                                        if ($yc[7] -eq $yc[8]+1) {
+                                            $answer = 7
+                                        }
+                                    }else {
+                                        if ($yc[8] -eq $yc[7]-1) {
+                                            if ($yc[8] -eq $yc[9]+1) {
+                                                $answer = 8
+                                            }
+                                        }else {
+                                            if ($yc[9] -eq $yc[8]-1) {
+                                                if ($yc[9] -eq $yc[10]+1) {
+                                                    $answer = 9
+                                                }
+                                            }else {
+                                                "Can't merge the file try a different Timeframe"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            write-host "Possible merge found at Base[$($tc[$answer])] and New[$($yc[$answer])] at the Creation Time of $(($y[$($yc[$answer])]).creationtime)"
+            $mergedfile = $t[0..($tc[$answer+1])]
+            $mergedfile += $y[($yc[$answer])..($y.count-1)]
+            $mergedfile | ConvertTo-Json | Out-File $file
+        }
+        else {
+            Write-Host "Backup file not found at " -NoNewline; write-host "$file" -ForegroundColor DarkBlue
+            $responce = Read-Host "Would you like to create a new one? (Y)es or (N)o"
+            if ($responce -eq "Y") {
+                $d = Search-SATM365Log -jsonfile $file -start $start -end $end
+            }
+            else {
+                return
+            }
+        }
+    }
 }
 
 function StatusBar {
@@ -252,7 +409,7 @@ function Search-SATM365Log {
 
         Write-LogFile "END: Retrieving audit records between $($start) and $($end), RecordType=$record, PageSize=$resultSize, total count: $totalCount."
         Write-Host "Script complete! Finished retrieving audit records for the date range between $($start) and $($end). Total count: $totalCount" -foregroundColor Green
-        $jsondata | out-file $jsonfile
+        $jsondata |  out-file $jsonfile
         $jsondata | ConvertFrom-Json | Sort-Object CreationTime
     }
 }
