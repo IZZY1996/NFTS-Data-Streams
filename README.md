@@ -4,33 +4,6 @@ This PowerShell Module can be used to audit various technologies. Currently what
 Bellow is some infomation on ADS if you need some (I'll hopefully just be able to hide that in the module soon)
 
 # About Alternate Data Streams (ADS)
-It was originally intended to allow for compatibility with Macintosh’s <a href="https://en.wikipedia.org/wiki/Hierarchical_File_System">Hierarchical File System (HFS)</a>
-
-All files on an NTFS volume consist of at least one stream - the main stream – this is the normal, viewable file in which data is stored. The full name of a stream is of the form <filename>:<stream name>:<stream type> The default data stream has no name. That is, the fully qualified name for the default stream for a file called "sample.txt" is "sample.txt::$DATA" since "sample.txt" is the name of the file and "$DATA" is the stream type. <sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85">Microsoft Docs | 5.1 NTFS Streams</a></sub></sub>
-> *Note:* A directory can also have an ADS
-  
-Here is a table of all the standard attribute types<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85">Microsoft Docs | 5.2 NTFS Attribute Types</a></sub></sub>
-| Attribute Name | Description |
-| --- | --- |
-| $ATTRIBUTE_LIST | Lists the location of all attribute records that do not fit in the MFT record |
-| $BITMAP | Attribute for Bitmaps **(Currently Used)**|
-| $DATA | Contains the default file data **(Currently Used)**|
-| $EA | Extended the attribute index |
-| $EA_INFORMATION | Extended attribute information |
-| $FILE_NAME | File name |
-| $INDEX_ALLOCATION | The type name for a Directory Stream. A string for the attribute code for index allocation **(Currently Used)**|
-| $INDEX_ROOT | Used to support folders and other indexes |
-| $LOGGED_UTILITY_STREAM | Use by the encrypting file system |
-| $OBJECT_ID | Unique GUID for every MFT record |
-| $PROPERTY_SET | Obsolete |
-| $REPARSE_POINT | Used for volume mount points |
-| $SECURITY_DESCRIPTOR | Security descriptor stores ACL and SIDs |
-| $STANDARD_INFORMATION | Standard information, such as file times and quota data |
-| $SYMBOLIC_LINK | Obsolete |
-| $TXF_DATA | Transactional NTFS data |
-| $VOLUME_INFORMATION | Version and state of the volume |
-| $VOLUME_NAME | Name of the volume |
-| $VOLUME_VERSION | Obsolete. Volume version |
 
 ## Zone.Identifier Stream
 Windows uses the stream name Zone.Identifier for storage of <a href="https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms537183(v=vs.85)?redirectedfrom=MSDN">URL security zones</a>.<sub><sub><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/6e3f7352-d11c-4d76-8c39-2516a9df36e8">Microsoft Docs | 5.6.1 Zone.Identifier Stream</a></sub></sub>
