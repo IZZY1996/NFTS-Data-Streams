@@ -94,19 +94,19 @@ function Backup-SATM365Log {
     [CmdletBinding()]
     param(
         $file = "C:\AuditLogSearch\backup.json",
-        [DateTime]$start = [DateTime]::UtcNow.Addhours(-10),
-        [DateTime]$end = [DateTime]::UtcNow.AddHours(-5)
+        [DateTime]$start = [DateTime]::UtcNow.AddDays(-90),
+        [DateTime]$end = [DateTime]::UtcNow
     )
     process {
         $mergedfile =@()
         if (test-path $file) {
             $ficont = get-content $file | ConvertFrom-Json
-            [datetime]$lastcontent = (($ficont[($ficont.count) - 1]).creationtime).Addhours(-1)
-            $d = Search-SATM365Log -jsonfile "C:\AuditLogSearch\backupnew.json" -start $lastcontent -end $([DateTime]::UtcNow)
+            [datetime]$lastcontent = (($ficont[($ficont.count) - 1]).creationtime).AddDays(-1)
+            $d = Search-SATM365Log -jsonfile "$file.tmp" -start $lastcontent -end $([DateTime]::UtcNow)
             $t = (Get-Content $file | ConvertFrom-Json | Sort-Object CreationTime)
-            $y = (Get-Content "C:\AuditLogSearch\backupnew.json" | ConvertFrom-Json | Sort-Object CreationTime)
+            $y = (Get-Content "$file.tmp" | ConvertFrom-Json | Sort-Object CreationTime)
             #
-            # Holy cow this is awful, I'll clean it up later, but that's the idea 
+            # Holy cow, this is awful, I'll clean it up later, but that's the idea and it works
             #
             $yc = @()
             $tc = @()
@@ -226,7 +226,7 @@ function Backup-SATM365Log {
                                                     $answer = 9
                                                 }
                                             }else {
-                                                "Can't merge the file try a different Timeframe"
+                                                "⚠️Can't merge the file try a different timeframe⚠️"
                                             }
                                         }
                                     }
@@ -239,7 +239,9 @@ function Backup-SATM365Log {
             write-host "Possible merge found at Base[$($tc[$answer])] and New[$($yc[$answer])] at the Creation Time of $(($y[$($yc[$answer])]).creationtime)"
             $mergedfile = $t[0..($tc[$answer+1])]
             $mergedfile += $y[($yc[$answer])..($y.count-1)]
-            $mergedfile | ConvertTo-Json | Out-File $file
+            $mergedfile | ConvertTo-Json -Depth 10 | Out-File $file
+            write-host "Merge Successful, File $file is the updated file with $($mergedfile.count) records"
+            Remove-item "$file.tmp"
         }
         else {
             Write-Host "Backup file not found at " -NoNewline; write-host "$file" -ForegroundColor DarkBlue
@@ -415,5 +417,5 @@ function Search-SATM365Log {
 }
 
 Export-ModuleMember -Function Search-SATM365Log
-#Export-ModuleMember -Function Backup-SATM365Log
+Export-ModuleMember -Function Backup-SATM365Log
 Export-ModuleMember -Function Get-SATDataStream
