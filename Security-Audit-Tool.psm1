@@ -40,6 +40,106 @@ function Get-SATDataStream {
             https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/a82e9105-2405-4e37-b2c3-28c773902d85
 
             --------------------------------------------
+                       STANDARD ADS TYPES
+            --------------------------------------------
+                  Zone.Identifier Stream
+            ----------------------------------
+            
+            Windows uses the stream name Zone.Identifier for storage of URL security zones. This ADS is also known as the Mark-of-the-Web (MOTW)
+
+            The Contents of this ADS have a few variations
+
+            A file "[MS-ADA1].pdf" was downloaded from the internet
+            ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+            ║[ZoneTransfer]                                                                                           ║
+            ║ZoneId=3                                                                                                 ║
+            ║ReferrerUrl=https://docs.microsoft.com/                                                                  ║
+            ║HostUrl=https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-ADA1/%5bMS-ADA1%5d.pdf ║
+            ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+            A file "Band_Chart_-_11X17_Color.pdf" Downloaded from the Discord
+            ╔═════════════════════════════════════════════════════════════════════════════════════╗
+            ║[ZoneTransfer]                                                                       ║
+            ║ZoneId=3                                                                             ║
+            ║HostUrl=https://cdn.discordapp.com/attachments/539...42/Band_Chart_-_11X17_Color.pdf ║
+            ╚═════════════════════════════════════════════════════════════════════════════════════╝
+            A file "WindowsFirewallHelper.dll" was extracted from a ZIP folder that was downloaded from the internet
+            ╔════════════════════════════════════════════════════════════╗
+            ║[ZoneTransfer]                                              ║
+            ║ZoneId=3                                                    ║
+            ║ReferrerUrl=C:\Users\XXXX\Downloads\Release_2.1.9.0002.zip  ║
+            ╚════════════════════════════════════════════════════════════╝
+            A file "1610298430605.mp4" was downloaded from the internet (I think I got this one on discord)
+            ╔═════════════════╗
+            ║[ZoneTransfer]   ║
+            ║ZoneId=3         ║
+            ╚═════════════════╝
+            A file doc_2020-06-08_20-11-54.mp4 I downloaded from Telegram (note that it has a blank line) <Not in the Script>
+            ╔═══════════════╗
+            ║[ZoneTransfer] ║
+            ║ZoneId=3       ║
+            ║               ║
+            ╚═══════════════╝
+            A video file 2020-10-04 21-16-11_Trim that was edited using the Windows Photo app
+            ╔═══════════════════════════════════════════════════════════════════╗
+            ║[ZoneTransfer]                                                     ║
+            ║LastWriterPackageFamilyName=Microsoft.Windows.Photos_8wekyb3d8bbwe ║ 
+            ║ZoneId=3                                                           ║
+            ╚═══════════════════════════════════════════════════════════════════╝
+            <Note:> Note: I've also seen the app used as Microsoft.ScreenSketch_8wekyb3d8bbwe and Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe These are AppX packages. If you see something you don't recognise you can use the powershell Get-AppxPackage | ? {$_.PackageFamilyName -eq "Microsoft.ScreenSketch_8wekyb3d8bbwe"} or whatever you're looking for.
+            A file TipsToPublicSpeaking.pdf probably saved or "print to PDF" from the old edge (this file was from 2017)
+            ╔═══════════════════════════════════════════════════════════════════╗
+            ║[ZoneTransfer]                                                     ║
+            ║ZoneId=3                                                           ║
+            ║LastWriterPackageFamilyName=Microsoft.MicrosoftEdge_8wekyb3d8bbwe  ║
+            ║AppZoneId=4                                                        ║
+            ╚═══════════════════════════════════════════════════════════════════╝
+
+            Value   Zone
+            ------  ----------
+            0	    Local Computer
+            1   	Local Intranet
+            2	    Trusted Sites
+            3	    Internet
+            4	    Restricted Sites
+
+            https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/6e3f7352-d11c-4d76-8c39-2516a9df36e8
+
+            ------------------------------
+                   SmartScreen Stream
+            ------------------------------
+            Only seen one value for this ADS
+            ╔═══════════════╗
+            ║Anaheim        ║
+            ╚═══════════════╝
+            <Note:> Anaheim was the codename for the Chromium based Microsoft Edge
+
+            ------------------------------
+                   Afp_AfpInfo Stream
+            ------------------------------
+            Existance of Afp_AfpInfo stream on some files is normal, and as such is of no cause for concern. This stream is generated on some file shares for support for Macintosh system Apple Filing Protocol(AFP). https://www.f-secure.com/v-descs/afpinfo.shtml
+
+            A file "INVITE.pdf" (and some PDFs I checked) had this value
+            ╔══════════════════╗
+            ║AFP☺€PDF CARO     ║
+            ╚══════════════════╝
+
+            -------------------------------------
+                   OECustomProperty Stream
+            -------------------------------------
+            Outlook Express uses the stream name OECustomProperty for storage of custom properties related to email files.
+
+            https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/f1adfb03-a5ca-49e5-9f0e-c01b7c56c2e3
+
+            --------------------------------------------
+                   com.apple.lastuseddate#PS Stream
+            --------------------------------------------
+            -----------------------------------------------------
+                   com.apple.metadata_kMDItemUserTags Stream
+            -----------------------------------------------------
+            -----------------------------------
+                   AFP_Resource Stream
+            -----------------------------------
+
     #>
     [CmdletBinding()]
     param()
