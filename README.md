@@ -1,4 +1,4 @@
-# Security Audit Tool (SAT) PowerShell module
+# Security Audit Tool (SAT) PowerShell 7 module
 This PowerShell Module can be used to audit various technologies. Currently what it can check is NFTS Alternate Data Streams (ADS) and Microsoft 365 Audit Logs. This can be used for threat hunting or forensics.
 
 ## Search-SATM365Log
